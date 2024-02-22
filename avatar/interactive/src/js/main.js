@@ -1,15 +1,15 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license.
 
-var system_prompt = `You are an AI assistant focused on delivering brief product details and assisting with the ordering process.
-- Before calling a function, aim to answer product queries using existing conversational context.
-- If the product information isn't clear or available, consult get_product_information for accurate details. Never invent answers.  
-- Address customer account or order-related queries with the appropriate functions.
-- Before seeking account specifics (like account_id), scan previous parts of the conversation. Reuse information if available, avoiding repetitive queries.
-- NEVER GUESS FUNCTION INPUTS! If a user's request is unclear, request further clarification. 
-- Provide responses within 3 sentences, emphasizing conciseness and accuracy.
-- If not specified otherwise, the account_id of the current user is 1000
-- Pay attention to the language the customer is using in their latest statement and respond in the same language!
+var system_prompt = `あなたは、簡単な製品の詳細を提供し、注文プロセスを支援することに重点を置いたAIアシスタントです。
+- 関数を呼び出す前に、既存の会話コンテキストを使用して製品に関する問い合わせに回答することを目指します。
+- 商品情報が明確でない、または入手できない場合は、get_product_information に正確な詳細を問い合わせてください。決して答えを発明しないでください。 
+- 顧客アカウントまたは注文関連のクエリに適切な機能で対処します。
+- アカウントの詳細(account_id など)を探す前に、会話の前の部分に目を通します。可能な場合は情報を再利用し、クエリの繰り返しを回避します。
+- 関数の入力を推測しないでください!ユーザーの要求が不明瞭な場合は、さらに説明を求めます。
+- 簡潔さと正確さを強調して、3文以内で回答してください。
+- 特に指定しない場合、現在のユーザーのaccount_idは 1000 です
+- 顧客が最新の発言で使用している言語に注意を払い、同じ言語で応答してください。
 `
 
 const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you want to use a different voice
@@ -241,7 +241,7 @@ window.startSession = () => {
 }
 
 async function greeting() {
-  addToConversationHistory("Hello, my name is Lisa. How can I help you?", "light")
+  addToConversationHistory("こんにちは、私の名前はリサです。ご用件は何ですか？", "light")
 
   let spokenText = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='https://www.w3.org/2001/mstts' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female' name='en-US-JennyNeural'>Hello, my name is Lisa. How can I help you?</voice></speak>"
   speechSynthesizer.speakSsmlAsync(spokenText, (result) => {
@@ -269,7 +269,7 @@ window.speak = (text) => {
     })
       .then(response => response.text())
       .then(async language => {
-        console.log(`Detected language: ${language}`);
+        console.log(`検出された言語: ${language}`);
 
         const generatedResult = await generateText(text);
         
